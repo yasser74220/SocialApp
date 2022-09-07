@@ -138,7 +138,7 @@ class SocialLoginScreen extends StatelessWidget {
                             ),
                             defaultTextButton(
                               onPressed: () {
-                                navigateTo(
+                                naviagteToAndReplace(
                                   context,
                                   SocialRegisterScreen(),
                                 );
