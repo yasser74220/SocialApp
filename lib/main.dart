@@ -16,29 +16,13 @@ import 'modules/social_app/social_login/social_login_screen.dart';
 
 void main() async {
    WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp();
-
   Bloc.observer = MyBlocObserver();
   dioHelper.init();
   await CacheHelper.init();
-
-
   Widget widget;
 
-  //bool onBoarding = CacheHelper.getData(key: 'onBoarding');
-  //token = CacheHelper.getData(key: 'token');
-
-   uId = CacheHelper.getData(key: 'uId');
-
-  // if(onBoarding != null)
-  // {
-  //   if(token != null) widget = ShopLayout();
-  //   else widget = ShopLoginScreen();
-  // } else
-  //   {
-  //     widget = OnBoardingScreen();
-  //   }
+  uId = CacheHelper.getData(key: 'uId');
 
   if(uId != null)
   {
