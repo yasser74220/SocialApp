@@ -46,7 +46,8 @@ class SocialCubit extends Cubit<SocialStates> {
   List<Widget> screens=[
     FeedsScreen(),
     ChatsScreen(),
-     UsersScreen(),
+    NewPostScreen(),
+    UsersScreen(),
     SettingsScreen(),
   ]  ;
   List<String> titles = [
