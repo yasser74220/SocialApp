@@ -49,6 +49,8 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
     SocialUserModel model = SocialUserModel(
       name: name,
       email: email,
+      image: 'https://img.freepik.com/free-photo/pretty-smiling-joyfully-female-with-fair-hair-dressed-casually-looking-with-satisfaction_176420-15187.jpg?w=1380&t=st=1662537453~exp=1662538053~hmac=b2861a258ae6b4c81b54e2461d682540a12c2dbd540a651e299a9fe698b8d5b7',
+      bio: 'Write your bio',
       phone: phone,
       uId: uId,
       isEmailVerified: false,
