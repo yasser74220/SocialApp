@@ -12,7 +12,7 @@ import 'package:social_app/shared/styles/themes.dart';
 
 import 'layouts/social_app/cubit/cubit.dart';
 import 'layouts/social_app/social_layout.dart';
-import 'modules/social_app/social_login/social_login_screen.dart';
+import 'modules/social_login/social_login_screen.dart';
 
 void main() async {
    WidgetsFlutterBinding.ensureInitialized();

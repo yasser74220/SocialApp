@@ -8,7 +8,7 @@ import '../../../layouts/social_app/social_layout.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/network/local/cache_helper.dart';
 import '../social_register/social_register_screen.dart';
-import 'cubit/cubit.dart';
+ import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
 class SocialLoginScreen extends StatelessWidget {

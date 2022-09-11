@@ -14,7 +14,7 @@ ThemeData light = ThemeData(
     titleTextStyle: TextStyle(
       color: Colors.black,
        fontFamily: 'Jannah',
-    fontSize: 15
+    fontSize: 20
     ),
 
      iconTheme: IconThemeData(
