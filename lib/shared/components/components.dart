@@ -1,10 +1,7 @@
-
-
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../../shared/styles/icon_broken.dart';
 
-import '../cubit/cubit.dart';
 
 Widget defualtButton({
   double width = double.infinity,
@@ -27,17 +24,15 @@ Widget defualtButton({
     );
 
 Widget defaultTextButton
-(
-{
+    ({
   required Function() onPressed,
   required String text
 
-}
-)
-=>
-TextButton
-(
-onPressed: onPressed, child: Text(text));
+}) =>
+    TextButton
+      (
+
+        onPressed: onPressed, child: Text(text, style: TextStyle(fontSize: 14,color: Colors.blue),));
 
 Widget myDivider() =>
     Padding(
@@ -215,14 +210,12 @@ void showToast({
 
 // enum
 // ignore: constant_identifier_names
-enum ToastStates {SUCCESS, ERROR, WARNING}
+enum ToastStates { SUCCESS, ERROR, WARNING }
 
-Color chooseToastColor(ToastStates state)
-{
+Color chooseToastColor(ToastStates state) {
   Color color;
 
-  switch(state)
-  {
+  switch (state) {
     case ToastStates.SUCCESS:
       color = Colors.green;
       break;
@@ -335,3 +328,20 @@ Color chooseToastColor(ToastStates state)
 //     ),
 //   ),
 // );
+
+PreferredSizeWidget defaultAppBar
+    ({
+  required BuildContext context,
+  List<Widget>?actions,
+  String ? title,
+}) =>
+    AppBar
+
+      (
+      titleSpacing: 5.0,
+      leading: IconButton(onPressed: () {
+        Navigator.pop(context);
+      }, icon: Icon(IconBroken.Arrow___Left_2),),
+      actions: actions,
+      title: Text(title!,),
+    );
