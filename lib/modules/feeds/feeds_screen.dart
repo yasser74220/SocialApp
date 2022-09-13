@@ -1,4 +1,9 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/layouts/social_app/cubit/cubit.dart';
+import 'package:social_app/layouts/social_app/cubit/states.dart';
+import 'package:social_app/models/post_model.dart';
 import 'package:social_app/shared/components/components.dart';
 import 'package:social_app/shared/styles/icon_broken.dart';
 
@@ -7,44 +12,57 @@ class FeedsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-       physics: BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          Card(
-            elevation: 05,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            margin: EdgeInsets.all(8),
-            child: Stack(alignment: AlignmentDirectional.topStart, children: [
-              Image(
-                image: NetworkImage(
-                    'https://img.freepik.com/free-photo/portrait-fair-haired-beautiful-female-woman-with-broad-smile-thumbs-up_176420-14970.jpg?w=1380&t=st=1662536638~exp=1662537238~hmac=3256884a08214dcb8bf93d4da3cc22d7ed46584d39a4206af3b07892959e81c9'),
-                fit: BoxFit.cover,
-                height: 250.0,
-                width: double.infinity,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('Communicate with friends',
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold)),
-              ),
-            ]),
-          ),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => buildPostItem(context),
-            separatorBuilder: (context, index) => SizedBox(height: 8,),
-            itemCount: 5,
-          ),
-          SizedBox(height: 8,)
-        ],
-      ),
+    return BlocConsumer<SocialCubit, SocialStates>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+
+    return ConditionalBuilder(
+      condition: SocialCubit.get(context).posts.length>0,
+      builder:(context) => SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            Card(
+              elevation: 05,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              margin: EdgeInsets.all(8),
+              child: Stack(alignment: AlignmentDirectional.topStart, children: [
+                Image(
+                  image: NetworkImage(
+                      'https://img.freepik.com/free-photo/portrait-fair-haired-beautiful-female-woman-with-broad-smile-thumbs-up_176420-14970.jpg?w=1380&t=st=1662536638~exp=1662537238~hmac=3256884a08214dcb8bf93d4da3cc22d7ed46584d39a4206af3b07892959e81c9'),
+                  fit: BoxFit.cover,
+                  height: 250.0,
+                  width: double.infinity,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Communicate with friends',
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold)),
+                ),
+              ]),
+            ),
+            ListView.separated(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) => buildPostItem(SocialCubit.get(context).posts[index],context),
+              separatorBuilder: (context, index) => SizedBox(height: 8,),
+              itemCount: SocialCubit.get(context).posts.length,
+            ),
+            SizedBox(height: 8,)
+          ],
+        ),
+      ) ,
+      fallback: (context) => Center(child: CircularProgressIndicator()),
+
     );
+  },
+);
   }
 
-  Widget buildPostItem(context) => Card(
+  Widget buildPostItem(PostModel model,context) => Card(
         elevation: 5,
         margin: EdgeInsets.symmetric(horizontal: 8),
         child: Padding(
@@ -56,7 +74,7 @@ class FeedsScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 25.0,
                     backgroundImage: NetworkImage(
-                        'https://img.freepik.com/free-photo/pretty-smiling-joyfully-female-with-fair-hair-dressed-casually-looking-with-satisfaction_176420-15187.jpg?w=1380&t=st=1662537453~exp=1662538053~hmac=b2861a258ae6b4c81b54e2461d682540a12c2dbd540a651e299a9fe698b8d5b7'),
+                        '${model.image}'),
                   ),
                   SizedBox(
                     width: 20,
@@ -68,7 +86,7 @@ class FeedsScreen extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              'Yasser Mohamed',
+                              '${model.name}',
                             ),
                             SizedBox(
                               width: 4,
@@ -81,7 +99,7 @@ class FeedsScreen extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          '2021 jan , 11:25 pm',
+                          '${model.dateTime}',
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ],
@@ -108,7 +126,7 @@ class FeedsScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                  'he 1500s Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500sLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s'),
+                  '${model.text}'),
               Padding(
                 padding: const EdgeInsets.only(
                   bottom: 10.0,
@@ -158,15 +176,19 @@ class FeedsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                height: 200.0,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        'https://img.freepik.com/free-photo/portrait-fair-haired-beautiful-female-woman-with-broad-smile-thumbs-up_176420-14970.jpg?w=1380&t=st=1662536638~exp=1662537238~hmac=3256884a08214dcb8bf93d4da3cc22d7ed46584d39a4206af3b07892959e81c9'),
-                    fit: BoxFit.cover,
+              if(model.postImage!= '')
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 200.0,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          '${model.postImage}'),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -251,7 +273,7 @@ class FeedsScreen extends StatelessWidget {
                           CircleAvatar(
                             radius: 18.0,
                             backgroundImage: NetworkImage(
-                              'https://image.freepik.com/free-photo/skeptical-woman-has-unsure-questioned-expression-points-fingers-sideways_273609-40770.jpg',
+                               SocialCubit.get(context).userModel!.image.toString(),
                             ),
                           ),
                           SizedBox(
