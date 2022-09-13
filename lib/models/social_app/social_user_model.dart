@@ -39,6 +39,7 @@ class SocialUserModel {
       'email':email,
       'image':image,
       'cover':cover,
+      'uId':uId,
       'bio':bio,
       'phone':phone,
       'isEmailVerified':isEmailVerified,
