@@ -7,7 +7,6 @@ class PostModel {
   String? postImage;
 
 
-
   PostModel({
      this.name,
      this.image,
